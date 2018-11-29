@@ -7,4 +7,5 @@ public interface Constant {
     String WrongPwd = "密码错误";
     String NoneLogin = "还未登录，请登录";
     String Welcome = "欢迎登陆小黄鸭书城";
+    String Error = "Oops,something wrong happened!please connect us : 028-88999999";
 }

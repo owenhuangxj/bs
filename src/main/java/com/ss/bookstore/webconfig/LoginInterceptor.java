@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 禁止非登陆用户访问资源的Spring MVC 拦截器，拦截的路径需要再WebConfig类中进行配置
+ */
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("--------------------------------------------------- preHandle ---------------------------------------------------");
-        if (request.getMethod().contains("login") ) return true;
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null) return true;
         request.setAttribute("msg", Constant.NoneLogin);
-        System.out.println("handler : " + handler);
         request.getRequestDispatcher("login").forward(request,response);
         return false;
     }

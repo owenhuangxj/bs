@@ -1,5 +1,4 @@
 package com.ss.bookstore.contant;
-
 public interface Constant {
     String LoginSuccess = "登录成功";
     String LoginFail = "登录失败";

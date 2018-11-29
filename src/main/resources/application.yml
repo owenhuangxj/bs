@@ -1,6 +1,5 @@
 server:
   port: 80
-
 #logging:
 #  config: classpath:log4j2.yml
 logging:
@@ -38,6 +37,7 @@ spring:
     prefix: classpath:/templates/ #默认就是classpath:/templates/
     suffix: .html #默认就是html
     encoding: UTF-8 #默认就是UTF-8
-    mode: LEGACYHTML5 # 对html5 没有结束标签报错的解决方法，配置成LEGACYHTML5是告诉thymeleaf模板对html5不做严格检查，mode默认值是HTML5,如此配置需要引入nekohtml依赖
+    mode: HTML5
+    #    mode: LEGACYHTML5 # 对html5 没有结束标签报错的解决方法，配置成LEGACYHTML5是告诉thymeleaf模板对html5不做严格检查，mode默认值是HTML5,如此配置需要引入nekohtml依赖
     servlet:
       content-type: text/html;charset=utf-8

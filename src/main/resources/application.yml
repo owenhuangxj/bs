@@ -7,7 +7,7 @@ logging:
     root: info
     com.ss.bookstore: debug
 mybatis:
-  mapper-locations: classpath*:com/ss/bookstore/mapper/xml/*.xml
+#  mapper-locations: classpath*:com/ss/bookstore/mapper/xml/*.xml
   type-aliases-package: com.ss.bookstore.pojo
 spring:
   datasource:
@@ -41,3 +41,7 @@ spring:
     #    mode: LEGACYHTML5 # 对html5 没有结束标签报错的解决方法，配置成LEGACYHTML5是告诉thymeleaf模板对html5不做严格检查，mode默认值是HTML5,如此配置需要引入nekohtml依赖
     servlet:
       content-type: text/html;charset=utf-8
+    #启用内容版本策略 md5
+    spring.resources.chain.strategy.content.enabled: true
+    #应用于版本策略的模式的逗号分隔列表 默认/**
+    spring.resources.chain.strategy.content.paths: /**

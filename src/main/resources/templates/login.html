@@ -7,7 +7,7 @@
 <body>
     <h3>登录</h3>
     <div>
-        <span th:text="${#httpSession.getAttribute('msg')}">还未登录，请登录</span><br/>
+        <span th:text="${#httpServletRequest.getAttribute('msg')}">还未登录，请登录</span><br/>
         <input type="text" name="username" id="username"/><br/>
         <input type="password" name="pwd" id="pwd"/><br/>
         <input type="button" value="登录" id="login"/><br/>

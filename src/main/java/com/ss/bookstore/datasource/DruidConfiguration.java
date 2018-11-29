@@ -1,14 +1,22 @@
 package com.ss.bookstore.datasource;
 import java.sql.SQLException;
 import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class DruidConfiguration {
+    public DruidConfiguration(){
+        System.out.println("==================================================DruidConfiguration==================================================");
+    }
     @Value("${spring.datasource.url}")
     private String url;
     @Value("${spring.datasource.username}")
@@ -48,6 +56,7 @@ public class DruidConfiguration {
     @Bean
     @Primary
     public DataSource dataSource() {
+        System.out.println("=============================================dataSource=============================================");
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(url);
         datasource.setUsername(username);
@@ -73,4 +82,22 @@ public class DruidConfiguration {
         datasource.setConnectionProperties(connectionProperties);
         return datasource;
     }
+//    @Bean
+//    @ConfigurationProperties(prefix="spring.datasource")
+//    public DataSource dataSource(){
+//        return new DataSource();
+//    }
+    @Bean
+    public SqlSessionFactory sqlSessionFactoryBean() throws Exception{
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource());
+//        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mybatis/*.xml"));;
+//        sqlSessionFactoryBean.setTypeAliasesPackage("com.owen.model");
+        return sqlSessionFactoryBean.getObject();
+    }
+//    @Bean
+//    public PlatformTransactionManager transactionManager(){
+//        return new DataSourceTransactionManager(dataSource());
+//    }
+
 }

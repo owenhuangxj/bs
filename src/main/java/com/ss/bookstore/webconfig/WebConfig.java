@@ -8,10 +8,10 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration //表示将该类注册到Spring IoC容器中去
 @ComponentScan(value = "com.ss.bookstore.controller")
 public class WebConfig extends WebMvcConfigurerAdapter {
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/login/**");
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/login/**");
+    }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -28,13 +28,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/images/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX.concat("static/images/")).setCachePeriod(60 * 60 * 24 * 7);
     }
 
-    /**
-     *  DispatcherServlet配置home页面，也可以在Controller中进行制定home页
-     *  @GetMapping("/")
-     *  public String login(){
-     *      return "login";
-     *  }
-     */
+    //DispatcherServlet配置home页面，也可以在Controller中进行制定home页,如下所示
+    /*@GetMapping("/")
+    public String login(){
+        return "login";
+    }*/
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");//login指向classpath:/templates/login.html

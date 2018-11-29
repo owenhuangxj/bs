@@ -1,0 +1,43 @@
+server:
+  port: 80
+
+#logging:
+#  config: classpath:log4j2.yml
+logging:
+  level:
+    root: info
+    com.ss.bookstore: debug
+mybatis:
+  mapper-locations: classpath*:com/ss/bookstore/mapper/xml/*.xml
+  type-aliases-package: com.ss.bookstore.pojo
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&useSSL=true&characterEncoding=UTF-8
+    username: root
+    password: root
+    ################################################################Druid################################################################
+    druid:
+      initial-size: 5 #初始化连接大小
+      min-idle: 5 #最小连接池数量
+      max-active: 20 #最大连接池数量
+      max-wait: 60000 #获取连接时最大等待时间，单位毫秒
+      time-between-eviction-runs-millis: 60000 #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      min-evictable-idle-time-millis: 300000 #配置一个连接在池中最小生存的时间，单位是毫秒
+      validation-query: select 1 from dual #测试连接
+      test-while-idle: true  #申请连接的时候检测，建议配置为true，不影响性能，并且保证安全性
+      test-on-borrow: false #获取连接时执行检测，建议关闭，影响性能
+      test-on-return: false #归还连接时执行检测，建议关闭，影响性能
+      pool-prepared-statements: false #是否开启PSCache，PSCache对支持游标的数据库性能提升巨大，oracle建议开启，mysql下建议关闭
+      max-pool-prepared-statement-per-connection-size: 20 #开启poolPreparedStatements后生效
+      filters: stat,wall,log4j #配置扩展插件，常用的插件有=>stat:监控统计  log4j:日志  wall:防御sql注入
+      connection-properties: 'druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000'
+  thymeleaf:
+    enabled: true
+    cache: false
+    prefix: classpath:/templates/ #默认就是classpath:/templates/
+    suffix: .html #默认就是html
+    encoding: UTF-8 #默认就是UTF-8
+    mode: LEGACYHTML5 # 对html5 没有结束标签报错的解决方法，配置成LEGACYHTML5是告诉thymeleaf模板对html5不做严格检查，mode默认值是HTML5,如此配置需要引入nekohtml依赖
+    servlet:
+      content-type: text/html;charset=utf-8

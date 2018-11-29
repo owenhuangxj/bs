@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ss.bookstore.mapper.BookMapper">
+	<select id="getBookByBookId" resultMap="bookResultMap">
+		select <include refid="bookColumns"/>
+		from t_book
+		where book_id = #{bookId}
+	</select>
+	<insert id="insertBook">
+		insert into t_book(<include refid="bookColumns"/>)
+		value(<include refid="bookValues"/>)
+	</insert>
+  <resultMap type="book" id="bookResultMap">
+  	<!-- <association property="bookInfo" column="book_id"  select="com.ss.dao.mapper.BookInfoMapper.getBookInfoByBooKId"/> -->
+  </resultMap>
+  
+  <sql id="bookColumns">book_id,book_name,book_author,book_price,book_kind,total_store,total_sold,book_pic,book_profile,book_status</sql>
+  <sql id="bookValues">#{bookId},#{bookName},#{bookAuthor},#{bookPrice},#{bookKind},#{totalStore},#{totalSold},#{bookPic},#{bookProfile},#{bookStatus}</sql>
+  <sql id="batchValues">(#{book.bookId},#{book.bookName},#{book.bookAuthor},#{book.bookPrice},#{book.publishDate},#{book.bookKind},#{book.totalStore},#{book.totalSold},#{book.bookPic},#{book.bookProfile},#{book.bookStatus})</sql>
+</mapper>

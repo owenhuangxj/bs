@@ -95,8 +95,18 @@
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
             <version>3.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
         <!--配置thymeleaf.mode为LEGACYHTML5后需要引入此依赖-->
         <dependency>
@@ -109,6 +119,7 @@
             <version>1.2.17</version>
             <!--<scope>compile</scope>-->
         </dependency>
+
     </dependencies>
 
     <description>idea springboot网上书城项目</description>
@@ -133,6 +144,23 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <!--对于IDEA系列编辑器，XML 文件是不能放在 java 文件夹中的，IDEA 默认不会编译源码文件夹中的 XML 文件，可以参照以下方式解决：
+            将配置文件放在 resource 文件夹中
+            对于 Maven 项目，可指定 POM 文件的 resource,如下所示：
+        -->
+        <!--<resources>
+            <resource>
+                &lt;!&ndash; xml放在java目录下&ndash;&gt;
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            &lt;!&ndash;指定资源的位置（xml放在resources下，可以不用指定）&ndash;&gt;
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>-->
     </build>
 
 

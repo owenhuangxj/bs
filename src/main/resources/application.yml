@@ -6,13 +6,12 @@ logging:
   level:
     root: info
     com.ss.bookstore: debug
-mybatis:
-#  mapper-locations: classpath*:com/ss/bookstore/mapper/xml/*.xml
-  type-aliases-package: com.ss.bookstore.pojo
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&useSSL=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # MyBatis对数据库字段类型为 bit、tinyint(1) 时映射为 boolean 类型的处理 ===>>>MyBatis 是不会自动处理该映射，需要修改请求连接添加参数 tinyInt1isBit=false
+    #
+    url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&useSSL=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&tinyInt1isBit=false
     username: root
     password: root
     ################################################################Druid################################################################
@@ -21,7 +20,7 @@ spring:
       min-idle: 5 #最小连接池数量
       max-active: 20 #最大连接池数量
       max-wait: 60000 #获取连接时最大等待时间，单位毫秒
-      time-between-eviction-runs-millis: 60000 #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 80000 #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
       min-evictable-idle-time-millis: 300000 #配置一个连接在池中最小生存的时间，单位是毫秒
       validation-query: select 1 from dual #测试连接
       test-while-idle: true  #申请连接的时候检测，建议配置为true，不影响性能，并且保证安全性
@@ -29,15 +28,15 @@ spring:
       test-on-return: false #归还连接时执行检测，建议关闭，影响性能
       pool-prepared-statements: false #是否开启PSCache，PSCache对支持游标的数据库性能提升巨大，oracle建议开启，mysql下建议关闭
       max-pool-prepared-statement-per-connection-size: 20 #开启poolPreparedStatements后生效
-      filters: stat,wall,log4j #配置扩展插件，常用的插件有=>stat:监控统计  log4j:日志  wall:防御sql注入
-      connection-properties: 'druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000'
+      filters: stat,log4j,wall #配置扩展插件，常用的插件有=>stat:监控统计  log4j:日志  wall:防御sql注入
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   thymeleaf:
     enabled: true
     cache: false
     prefix: classpath:/templates/ #默认就是classpath:/templates/
     suffix: .html #默认就是html
     encoding: UTF-8 #默认就是UTF-8
-    mode: HTML5
+    mode: HTML
     #    mode: LEGACYHTML5 # 对html5 没有结束标签报错的解决方法，配置成LEGACYHTML5是告诉thymeleaf模板对html5不做严格检查，mode默认值是HTML5,如此配置需要引入nekohtml依赖
     servlet:
       content-type: text/html;charset=utf-8
@@ -45,3 +44,12 @@ spring:
     spring.resources.chain.strategy.content.enabled: true
     #应用于版本策略的模式的逗号分隔列表 默认/**
     spring.resources.chain.strategy.content.paths: /**
+mybatis-plus:
+  type-aliases-package: com.ss.bookstore.entity
+  mapper-locations: classpath*:mybatis/**/*.xml
+  global-config:
+    refresh: true #是否自动刷新 Mapper 对应的 XML 文件，默认不自动刷新。如果配置了该属性，Mapper 对应的 XML 文件会自动刷新，更改 XML 文件后，无需再次重启工程，由此节省大量时间。
+    db-config:
+      table-prefix: t_
+  configuration:
+    map-underscore-to-camel-case: true #是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射。注意:此属性在 MyBatis 中原默认值为 false，在 MyBatis-Plus 中，此属性也将用于生成最终的 SQL 的 select body;如果您的数据库命名符合规则无需使用 @TableField 注解指定数据库字段名

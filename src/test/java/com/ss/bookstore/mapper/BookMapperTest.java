@@ -84,15 +84,17 @@ public class BookMapperTest {
     @Test
     public void testSelectPage(){
         IPage<Book> page = new Page<Book>(1,20);
-        IPage<Book> bookIPage= bm.selectPage(page,new QueryWrapper<Book>().eq("book_kind","玄幻").gt("book_price",5000)
+        IPage<Book> bookIPage= bm.selectPage(
+            page,
+            new QueryWrapper<Book>()
+                .eq("book_kind","玄幻")
+                .gt("book_price",5000)
         );
         Assert.assertSame(page,bookIPage);
         System.out.println("总条数 ： " + bookIPage.getTotal());
         System.out.println("每页显示条数 ：" + bookIPage.getSize());
         System.out.println("当前显示页数 ： " + bookIPage.getCurrent());
         List<Book> books = bookIPage.getRecords();
-
         books.forEach(book -> System.out.println(book));
     }
-
 }

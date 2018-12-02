@@ -24,14 +24,13 @@ import java.util.UUID;
 public class BookMapperTest {
     @Autowired
     private BookMapper bm;
-    private boolean books;
 
     @Test
     public void testInsert(){
         Book book = new Book();
         book.setBookId(UUID.randomUUID().toString());
         book.setBookCoverPic("OwenHuang.jpg");
-        book.setBookIntro("It's wonderful book that help me from 自怨自艾");
+        book.setBookIntro("It's wonderful book that help me from blaming self");
         book.setBookPrice(156);
         book.setBookPublishDate("2014-9-18");
         book.setBookStatus(1);
@@ -84,9 +83,15 @@ public class BookMapperTest {
 
     @Test
     public void testSelectPage(){
-        IPage<Book> page = new Page<Book>(1,10);
-        List<Book> books = bm.selectPage(page,new QueryWrapper<Book>().eq("book_kind","玄幻").gt("book_price",5000)
-        ).getRecords();
+        IPage<Book> page = new Page<Book>(1,20);
+        IPage<Book> bookIPage= bm.selectPage(page,new QueryWrapper<Book>().eq("book_kind","玄幻").gt("book_price",5000)
+        );
+        Assert.assertSame(page,bookIPage);
+        System.out.println("总条数 ： " + bookIPage.getTotal());
+        System.out.println("每页显示条数 ：" + bookIPage.getSize());
+        System.out.println("当前显示页数 ： " + bookIPage.getCurrent());
+        List<Book> books = bookIPage.getRecords();
+
         books.forEach(book -> System.out.println(book));
     }
 

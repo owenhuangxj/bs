@@ -18,21 +18,30 @@ public class DataSourceConfiguration {
     @Primary
     @Bean("dataSource")
     @ConfigurationProperties(prefix="spring.datasource")
-    public DataSource dataSource(){
-        return new DruidDataSource();
+    public DataSource dataSource() {
+        DruidDataSource ds = new DruidDataSource();
+        System.out.println("maxActive : "+ds.getMaxActive());
+        return ds ;
     }
-    @Bean
-    public SqlSessionFactory sqlSessionFactoryBean() throws Exception{
-        MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
-        factoryBean.setDataSource(dataSource());
-        return factoryBean.getObject();
-    }
+    //Springboot配置druid时不再需要配置SqlSessionFactory，否则mybatis-plus的BaseMapper分页功能都会失效
+//    @Bean
+//    public SqlSessionFactory sqlSessionFactoryBean() throws Exception{
+//        MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
+//        DataSource ds1 = dataSource();
+//        DataSource ds2 = dataSource();
+//        System.out.println("ds1 == ds2 : " + (ds1 == ds2));
+//        System.out.println("max-active : " + ((DruidDataSource)dataSource()).getMaxActive());
+//        factoryBean.setDataSource(dataSource());
+//        return factoryBean.getObject();
+//    }
 //    @Bean
 //    public PlatformTransactionManager transactionManager(){
 //        return new DataSourceTransactionManager(dataSource());
 //    }
     @Bean
     public PaginationInterceptor paginationInterceptor(){
-        return new PaginationInterceptor();
+        PaginationInterceptor pi = new PaginationInterceptor();
+        pi.setDialectType("mysql");
+        return pi;
     }
 }

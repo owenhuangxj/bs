@@ -97,4 +97,6 @@ public class BookMapperTest {
         List<Book> books = bookIPage.getRecords();
         books.forEach(book -> System.out.println(book));
     }
+
+
 }

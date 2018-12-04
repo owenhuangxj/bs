@@ -18,7 +18,7 @@ spring:
     druid:
       initial-size: 5 #初始化连接大小
       min-idle: 5 #最小连接池数量
-      max-active: 20 #最大连接池数量
+      max-active: 21 #最大连接池数量
       max-wait: 60000 #获取连接时最大等待时间，单位毫秒
       time-between-eviction-runs-millis: 80000 #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
       min-evictable-idle-time-millis: 300000 #配置一个连接在池中最小生存的时间，单位是毫秒
@@ -50,14 +50,17 @@ spring:
 #    filters: stat,log4j,wall
 #    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   redis:
-    database: 0
+    database: 3 #默认为0
+    host: 127.0.0.1
+    password:
+    port: 6379 #默认就是6379
+    timeout: 3600 # 单位是ms
     jedis:
       pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 1
-
+        max-active: 8 #连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1 #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 8 #连接池中的最大空闲连接
+        min-idle: 1 #连接池中的最小空闲连接
   thymeleaf:
     enabled: true
     cache: false

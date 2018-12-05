@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.*;
-
 @TableName("t_user")
 public class User implements Serializable {
     /**
@@ -61,7 +60,7 @@ public class User implements Serializable {
     /**
      * 所有的收货地址
      */
-    @TableField(exist = false)
+    @TableField(exist = false) //exist=false表示该属性不是数据库表字段
     private Set<DeliveryAddress> addresses = new HashSet<>();
     /**
      * 浏览过但是没有买过的书

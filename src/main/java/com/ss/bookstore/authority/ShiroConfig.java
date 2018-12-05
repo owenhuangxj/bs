@@ -11,7 +11,7 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
     @Bean
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -27,9 +27,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/user/**", "roles[user]");
         //管理员，需要角色权限 “admin”
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
-        //开放登陆接口
+        //游客可以访问login，即开放登陆接口，让所有人都可以访问登陆页面
         filterChainDefinitionMap.put("/login", "anon");
-        //游客可以访问adminLogin
+        //游客可以访问adminLogin，adminLogin是管理员登陆接口，对应的是URL为/adminLogin的Handler
         filterChainDefinitionMap.put("/adminLogin","anon");
 
         //其余接口一律拦截

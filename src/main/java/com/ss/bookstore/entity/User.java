@@ -1,13 +1,12 @@
 package com.ss.bookstore.entity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+import java.util.*;
+
+@TableName("t_user")
 public class User implements Serializable {
     /**
      * 用户id
@@ -21,42 +20,66 @@ public class User implements Serializable {
     /**
      * 用户密码
      */
-    private String userPwd;
+    private String userPassword;
 
     /**
      * 积分
      */
-    private Integer credit;
+    private Integer userCredit;
     /**
      * 账号状态
      */
-    private Boolean active;
+    private Boolean userIsActive;
     /**
      * 用户电话
      */
-    private String cellphone;
+    private String userPhone;
     /**
      * 用户email
      */
-    private String email;
+    private String userEmail;
+    /**
+     * 用户余额
+     */
+    private Double userBalance;
+    /**
+     *用户角色
+     */
+    private String userRole;
+    /**
+     * 用户购物车状态
+     */
+    private Boolean userCartStatus;
+    /**
+     * 用户注册时间
+     */
+    private Date userRegisterTime;
+    /**
+     * 用户最后登录时间
+     */
+    private Date userLastLoginTime;
     /**
      * 所有的收货地址
      */
+    @TableField(exist = false)
     private Set<DeliveryAddress> addresses = new HashSet<>();
     /**
      * 浏览过但是没有买过的书
      */
-    private List<Book> visited = new ArrayList<>();
+    @TableField(exist = false)
+    private List<Book> visitedBooks = new ArrayList<>();
     /**
      * 买过的书
      */
+    @TableField(exist = false)
     private List<Order> orders = new ArrayList<>();
     /**
      * 购物车
      * Map类型，key是Book，value是数量
      */
+    @TableField(exist = false)
     private Map<Book, Integer> cart = new HashMap<>();
-
+    @TableField(exist = false)
     private List<Coupon> coupons = new ArrayList<Coupon>();
 
     public Long getUserId() {
@@ -75,44 +98,84 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public String getUserPwd() {
-        return userPwd;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public Integer getCredit() {
-        return credit;
+    public Integer getUserCredit() {
+        return userCredit;
     }
 
-    public void setCredit(Integer credit) {
-        this.credit = credit;
+    public void setUserCredit(Integer userCredit) {
+        this.userCredit = userCredit;
     }
 
-    public Boolean getActive() {
-        return active;
+    public Boolean getUserIsActive() {
+        return userIsActive;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setUserIsActive(Boolean userIsActive) {
+        this.userIsActive = userIsActive;
     }
 
-    public String getCellphone() {
-        return cellphone;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public Double getUserBalance() {
+        return userBalance;
+    }
+
+    public void setUserBalance(Double userBalance) {
+        this.userBalance = userBalance;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    public Boolean getUserCartStatus() {
+        return userCartStatus;
+    }
+
+    public void setUserCartStatus(Boolean userCartStatus) {
+        this.userCartStatus = userCartStatus;
+    }
+
+    public Date getUserRegisterTime() {
+        return userRegisterTime;
+    }
+
+    public void setUserRegisterTime(Date userRegisterTime) {
+        this.userRegisterTime = userRegisterTime;
+    }
+
+    public Date getUserLastLoginTime() {
+        return userLastLoginTime;
+    }
+
+    public void setUserLastLoginTime(Date userLastLoginTime) {
+        this.userLastLoginTime = userLastLoginTime;
     }
 
     public Set<DeliveryAddress> getAddresses() {
@@ -123,12 +186,12 @@ public class User implements Serializable {
         this.addresses = addresses;
     }
 
-    public List<Book> getVisited() {
-        return visited;
+    public List<Book> getVisitedBooks() {
+        return visitedBooks;
     }
 
-    public void setVisited(List<Book> visted) {
-        this.visited = visted;
+    public void setVisitedBooks(List<Book> visitedBooks) {
+        this.visitedBooks = visitedBooks;
     }
 
     public List<Order> getOrders() {
@@ -158,13 +221,26 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Long userId, String userName, Integer credit, Boolean active, String cellphone, String email) {
+    public User(Long userId, String userName, String userPassword, String userRole) {
         this.userId = userId;
         this.userName = userName;
-        this.credit = credit;
-        this.active = active;
-        this.cellphone = cellphone;
-        this.email = email;
+        this.userPassword = userPassword;
+        this.userRole = userRole;
+    }
+
+    public User(Long userId, String userName, String userPassword, Integer userCredit, Boolean userIsActive, String userPhone, String userEmail, Double userBalance, String userRole, Boolean userCartStatus, Date userRegisterTime, Date userLastLoginTime) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userCredit = userCredit;
+        this.userIsActive = userIsActive;
+        this.userPhone = userPhone;
+        this.userEmail = userEmail;
+        this.userBalance = userBalance;
+        this.userRole = userRole;
+        this.userCartStatus = userCartStatus;
+        this.userRegisterTime = userRegisterTime;
+        this.userLastLoginTime = userLastLoginTime;
     }
 
     @Override
@@ -172,13 +248,18 @@ public class User implements Serializable {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
-                ", userPwd='" + userPwd + '\'' +
-                ", credit=" + credit +
-                ", active=" + active +
-                ", cellphone='" + cellphone + '\'' +
-                ", email='" + email + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userCredit=" + userCredit +
+                ", userIsActive=" + userIsActive +
+                ", userPhone='" + userPhone + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userBalance=" + userBalance +
+                ", userRole='" + userRole + '\'' +
+                ", userCartStatus=" + userCartStatus +
+                ", userRegisterTime=" + userRegisterTime +
+                ", userLastLoginTime=" + userLastLoginTime +
                 ", addresses=" + addresses +
-                ", visited=" + visited +
+                ", visitedBooks=" + visitedBooks +
                 ", orders=" + orders +
                 ", cart=" + cart +
                 ", coupons=" + coupons +

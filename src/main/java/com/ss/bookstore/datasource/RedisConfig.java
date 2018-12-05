@@ -22,7 +22,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     private JedisConnectionFactory jedisConnectionFactory;
 
     /**
-     * @description 自定义的缓存key的生成策略,若想使用这个key  只需要讲注解上keyGenerator的值设置为keyGenerator即可</br>
+     * @description 自定义的缓存key的生成策略,若想使用这个key  只需要将注解上keyGenerator的值设置为keyGenerator即可</br>
      * @return 自定义策略生成的key
      */
     @Bean
@@ -50,10 +50,10 @@ public class RedisConfig extends CachingConfigurerSupport {
     public RedisTemplate<String, Object> redisTemplate(JedisConnectionFactory jedisConnectionFactory ) {
         //设置序列化
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         //配置redisTemplate
         RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisConnectionFactory);

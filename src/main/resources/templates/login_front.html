@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+    <h3>登录</h3>
+    <div>
+        <span th:text="${#httpServletRequest.getAttribute('msg')}">还未登录，请登录</span><br/>
+        <input type="text" name="username" id="username"/><br/>
+        <input type="password" name="pwd" id="pwd"/><br/>
+        <input type="button" value="登录" id="login"/><br/>
+        <!--<span th:text="${session.ss}"></span>
+        <span th:text="${#httpSession.getAttribute('ss')}">session</span>
+        <span th:text="${#httpServletRequest.getAttribute('qq')}">req</span>
+        <span th:text="${#httpServletRequest.getServletContext().getAttribute('pp')}">application</span>-->
+    </div>
+</body>
+</html>

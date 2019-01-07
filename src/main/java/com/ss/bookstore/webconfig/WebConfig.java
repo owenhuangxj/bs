@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.*;
 @EnableWebMvc//表示该类是做Spring MVC 配置的
 @Configuration //表示将该类注册到Spring IoC容器中去
 @ComponentScan(value = "com.ss.bookstore.controller")
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig implements WebMvcConfigurer {
 //    @Override
 //    public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/**/login/**");
@@ -23,9 +23,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/js/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX.concat("static/js/")).setCachePeriod(60 * 60 * 24 * 7);
-        registry.addResourceHandler("/css/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX.concat("static/css/")).setCachePeriod(60 * 60 * 24 * 7);
-        registry.addResourceHandler("/images/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX.concat("static/images/")).setCachePeriod(60 * 60 * 24 * 7);
+        registry.addResourceHandler("resources/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX.concat("classpath:/static/")).setCachePeriod(60 * 60 * 24 * 7);
     }
 
     //DispatcherServlet配置home页面，也可以在Controller中进行制定home页,如下所示

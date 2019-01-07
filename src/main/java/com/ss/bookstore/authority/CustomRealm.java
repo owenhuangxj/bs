@@ -39,7 +39,7 @@ public class CustomRealm extends AuthorizingRealm {
             else if ( !password.equals( new String( token.getPassword() ) ) ) {
             throw new AccountException("密码不正确");
         }
-        return new SimpleAuthenticationInfo( token.getPrincipal(), password, getName() );
+        return new SimpleAuthenticationInfo( token.getPrincipal(), password, getName() );//getName()是CustomRealm的父类的父类的方法
     }
     /**
      * 获取授权信息

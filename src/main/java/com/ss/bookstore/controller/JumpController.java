@@ -9,6 +9,10 @@ public class JumpController  {
     public String toLoginPage(){
         return "login";
     }
+    @RequestMapping("/upload")
+    public String toFileUploadPage(){
+        return "upload";
+    }
     //测试thymeleaf获取request，session，application的Controller代码
 //    @GetMapping("/login")
 //    public ModelAndView login(ModelAndView mv, HttpServletRequest request, HttpSession session){

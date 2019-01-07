@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${#dates.format('${new java.util.Date().getTime()}','yyyy-MM-dd:HH:mm:ss')}"></p>
+[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}]]
+<p shiro:notAuthenticated="">
+    未知身份
+</p>
+
+</body>
+</html>

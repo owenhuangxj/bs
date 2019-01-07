@@ -8,7 +8,8 @@ logging:
     com.ss.bookstore: debug
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     # MyBatis对数据库字段类型为 bit、tinyint(1) 时映射为 boolean 类型的处理 ===>>>MyBatis 是不会自动处理该映射，需要修改请求连接添加参数 tinyInt1isBit=false
     url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&useSSL=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&tinyInt1isBit=false
     username: root
@@ -33,9 +34,9 @@ spring:
       # log4j：这个就是日志记录的功能，可以把sql语句打印到log4j供排查问题。
       filters: stat,log4j,wall #配置扩展插件，配置监控统计拦截的filters，去掉后监控界面sql无法统计，常用的插件有=>stat:监控统计  log4j:日志  wall:防御sql注入
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #通过connectProperties属性来打开mergeSql功能；慢SQL记录
-      # 合并多个DruidDataSource的监控数据
-      #spring.datasource.useGlobalDataSourceStat=true
-#    platform: mysql
+    # 合并多个DruidDataSource的监控数据
+    #spring.datasource.useGlobalDataSourceStat=true
+  #    platform: mysql
 #    initialSize: 5
 #    minIdle: 5
 #    maxActive: 21

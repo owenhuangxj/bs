@@ -51,9 +51,9 @@ spring:
 #    filters: stat,log4j,wall
 #    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   redis:
-    database: 3 #默认为0
     host: 127.0.0.1
-    password:
+    database: 3 #默认为0
+    password: foobared
     port: 6379 #默认就是6379
     timeout: 3600 # 单位是ms
     jedis:

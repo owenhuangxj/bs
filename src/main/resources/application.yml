@@ -8,8 +8,8 @@ logging:
     com.ss.bookstore: debug
 spring:
   datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
     # MyBatis对数据库字段类型为 bit、tinyint(1) 时映射为 boolean 类型的处理 ===>>>MyBatis 是不会自动处理该映射，需要修改请求连接添加参数 tinyInt1isBit=false
     url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&useSSL=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&tinyInt1isBit=false
     username: root
@@ -25,8 +25,8 @@ spring:
       min-evictable-idle-time-millis: 300000 #配置一个连接在池中最小生存的时间，单位是毫秒
       validation-query: select 1 from dual #测试连接
       test-while-idle: true  #申请连接的时候检测，建议配置为true，不影响性能，并且保证安全性
-      test-on-borrow: false #获取连接时执行检测，建议关闭，影响性能
-      test-on-return: false #归还连接时执行检测，建议关闭，影响性能
+      test-on-borrow: false #获取连接时执行检测，生产环境建议关闭，影响性能
+      test-on-return: false #归还连接时执行检测，生产环境建议关闭，影响性能
       pool-prepared-statements: false #是否开启PSCache，PSCache对支持游标的数据库性能提升巨大，oracle建议开启，mysql下建议关闭
       max-pool-prepared-statement-per-connection-size: 20 #开启poolPreparedStatements后生效
       # stat：Druid内置提供一个StatFilter,用于统计监控信息。如果需要配置访问页面可以参考，https://github.com/alibaba/druid/wiki/配置_StatViewServlet配置。
@@ -36,7 +36,7 @@ spring:
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #通过connectProperties属性来打开mergeSql功能；慢SQL记录
     # 合并多个DruidDataSource的监控数据
     #spring.datasource.useGlobalDataSourceStat=true
-  #    platform: mysql
+#    platform: mysql
 #    initialSize: 5
 #    minIdle: 5
 #    maxActive: 21
@@ -56,12 +56,11 @@ spring:
     password: foobared
     port: 6379 #默认就是6379
     timeout: 3600 # 单位是ms
-    jedis:
-      pool:
-        max-active: 8 #连接池最大连接数（使用负值表示没有限制）
-        max-wait: -1 #连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-idle: 8 #连接池中的最大空闲连接
-        min-idle: 1 #连接池中的最小空闲连接
+    pool:
+      max-active: 8 #连接池最大连接数（使用负值表示没有限制）
+      max-wait: -1 #连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-idle: 8 #连接池中的最大空闲连接
+      min-idle: 1 #连接池中的最小空闲连接
   thymeleaf:
     enabled: true
     cache: false

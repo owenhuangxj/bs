@@ -26,11 +26,11 @@ public class SpringBootLettuceRedisApplicationTests {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private RedisTemplate<String, Serializable> redisCacheTemplate;
+    private RedisTemplate<String, Object> redisCacheTemplate;
 
 
     @Test
-    public void get() {
+    public void testRedis() {
         // TODO 测试线程安全
         ExecutorService executorService = Executors.newFixedThreadPool(1000);
         IntStream.range(0, 1000).forEach(i ->

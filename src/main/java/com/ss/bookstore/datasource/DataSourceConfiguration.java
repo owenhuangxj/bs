@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import java.sql.SQLException;
 
 @Configuration
-@MapperScan(basePackages={"com.ss.bookstore.mapper"})
+//可以在启动类配置
+//@MapperScan(basePackages={"com.ss.bookstore.mapper"})
 @EnableTransactionManagement
 public class DataSourceConfiguration {
     @Value("${spring.datasource.url}")
@@ -101,6 +102,7 @@ public class DataSourceConfiguration {
 //    public PlatformTransactionManager transactionManager(){
 //        return new DataSourceTransactionManager(dataSource());
 //    }
+    //配置了该类后才能实现mybatis-plus的分页功能
     @Bean
     public PaginationInterceptor paginationInterceptor(){
         PaginationInterceptor pi = new PaginationInterceptor();

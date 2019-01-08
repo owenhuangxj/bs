@@ -124,6 +124,11 @@
             <version>1.2.17</version>
             <!--<scope>compile</scope>-->
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.46</version>
+        </dependency>
     </dependencies>
     <description>idea springboot网上书城项目</description>
     <parent>

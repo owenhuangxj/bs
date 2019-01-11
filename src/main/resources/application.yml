@@ -1,19 +1,20 @@
 server:
   port: 80
-#logging:
-#  config: classpath:log4j2.yml
 logging:
-  level:
-    root: info
-    com.ss.bookstore: debug
+#  config: classpath:log4j2.yml
+  config: classpath:log4j2.xml
+#logging:
+#  level:
+#    root: info
+#    com.ss.bookstore: debug
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    driver-class-name: com.mysql.jdbc.Driver
     # MyBatis对数据库字段类型为 bit、tinyint(1) 时映射为 boolean 类型的处理 ===>>>MyBatis 是不会自动处理该映射，需要修改请求连接添加参数 tinyInt1isBit=false
-    url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&useSSL=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&tinyInt1isBit=false
-    username: root
-    password: root
+    url: jdbc:mysql://129.204.70.43:3306/auth?useUnicode=true&useSSL=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&tinyInt1isBit=false
+    username: owen
+    password: Owen@huang2018
     type: com.alibaba.druid.pool.DruidDataSource
     ################################################################Druid,不配置则启用默认配置################################################################
     druid:
@@ -54,13 +55,13 @@ spring:
     host: 127.0.0.1
     database: 3 #默认为0
     password: foobared
-    port: 6379 #默认就是6379
-    timeout: 3600 # 单位是ms
-    pool:
-      max-active: 8 #连接池最大连接数（使用负值表示没有限制）
-      max-wait: -1 #连接池最大阻塞等待时间（使用负值表示没有限制）
-      max-idle: 8 #连接池中的最大空闲连接
-      min-idle: 1 #连接池中的最小空闲连接
+#    port: 6379 #默认就是6379
+#    timeout: 3600 # 单位是ms
+#    pool:
+#      max-active: 8 #连接池最大连接数（使用负值表示没有限制）
+#      max-wait: -1 #连接池最大阻塞等待时间（使用负值表示没有限制）
+#      max-idle: 8 #连接池中的最大空闲连接
+#      min-idle: 1 #连接池中的最小空闲连接
   thymeleaf:
     enabled: true
     cache: false

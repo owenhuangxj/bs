@@ -4,15 +4,17 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.deser.BeanDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.jackson.JsonComponent;
 
 @TableName("t_book")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Book implements Serializable{
+public class Book implements Serializable {
 	private static final long serialVersionUID = 597733879789573558L;
 	@TableId
 	private Long id;

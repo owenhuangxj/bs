@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>测试Vue组件的引用和shiro标签</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+</head>
+<body>
+credential : <span th:text="#{credential}"></span>
+<p shiro:hasRole="user">拥有user role就会显示出来</p>
+<p shiro:hasRole="admin">拥有admin role就会显示出来</p>
+<div>
+    Hello,
+    <shiro:principal/>
+    , how are you today?
+</div>
+<div id="app">
+    <App></App>
+</div>
+</body>
+<script type="text/javascript">
+    new Vue({
+            el: '#app',
+            components: {
+                'App': httpVueLoader('resources/components/App.vue')
+            }
+        }
+    )
+</script>
+</html>

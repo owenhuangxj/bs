@@ -10,6 +10,20 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <!-- logback是springboot默认使用的日志，默认级别INFO。比log4j效率更高，且实现了slf4j接口。实际日志都是在运行时binding的具体实现类。
+            默认情况下spring-boot-starter已经包含了logback，所以我们启动项目时没有配置日志也会正常打印日志。
+            默认配置在org.springframework.boot.logging.logback.base.xml ,仅是简单更改的话不需要创建并配置resources/logback-spring.xml()，在application.properties或者application.yml更改相关配置就可以了。-->
+            <exclusions>
+                <!--排除springboot的默认日志logback-->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
@@ -47,29 +61,54 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
             </exclusions>-->
         </dependency>
+        <dependency> <!-- 引入log4j2依赖 -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <!-- 加上这个才能辨认到log4j2.yml文件 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.4.0</version>
+        </dependency>-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
             <version>1.4.0</version>
         </dependency>
+        <!--<dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring-boot-web-starter</artifactId>
+            <version>1.4.0-RC2</version>
+        </dependency>-->
+
         <!-- 兼容于thymeleaf的shiro，Apache Shiro官网有说明 -->
         <dependency>
             <groupId>com.github.theborakompanioni</groupId>
             <artifactId>thymeleaf-extras-shiro</artifactId>
-            <version>1.2.1</version><!--必须指定此处的版本，否者报错-->
+            <version>2.0.0</version><!--必须指定此处的版本，否者报错-->
         </dependency>
         <!-- 配置 log4j2 -->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>-->
-        <!-- 加上这个才能辨认到log4j2.yml文件 -->
-        <!--<dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-        </dependency>-->
+
         <!--<dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
@@ -77,7 +116,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
+            <scope>true</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -114,15 +154,15 @@
             <optional>true</optional>
         </dependency>
         <!--配置thymeleaf.mode为LEGACYHTML5后需要引入此依赖,新版Thymeleaf已经解决这个问题-->
-        <dependency>
+        <!--<dependency>
             <groupId>net.sourceforge.nekohtml</groupId>
             <artifactId>nekohtml</artifactId>
-        </dependency>
+        </dependency>-->
+        <!--shiro，druid依赖log4j，不可少-->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
-            <!--<scope>compile</scope>-->
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>

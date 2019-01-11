@@ -23,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("resources/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX.concat("classpath:/static/")).setCachePeriod(60 * 60 * 24 * 7);
+        registry.addResourceHandler("resources/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX.concat("/static/")).setCachePeriod(60 * 60 * 24 * 7);
     }
 
     //DispatcherServlet配置home页面，也可以在Controller中进行制定home页,如下所示

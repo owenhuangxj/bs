@@ -13,6 +13,10 @@ public class ResultMap extends HashMap<String, Object> {
         this.put("result", "fail");
         return this;
     }
+    public ResultMap page(String page){
+        this.put("page",page);
+        return this;
+    }
     public ResultMap message(Object message) {
         this.put("message", message);
         return this;

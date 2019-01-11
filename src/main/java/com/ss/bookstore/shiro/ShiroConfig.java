@@ -1,4 +1,5 @@
-package com.ss.bookstore.authority;
+package com.ss.bookstore.shiro;
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -19,9 +20,9 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setLoginUrl("/notLogin");
         // 设置无权限时跳转的 url;
         shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
-        // 设置拦截器
+        // 设置拦截器,LinkedHashMap内部维持了一个双向链表,可以保持顺序,能够让你取数据时，取出的数据保持进入的顺序
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        //游客，开发权限
+        //游客，比如开发权限
         filterChainDefinitionMap.put("/guest/**", "anon");
         //用户，需要角色权限 “user”
         filterChainDefinitionMap.put("/user/**", "roles[user]");
@@ -29,11 +30,10 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
         //游客可以访问login，即开放登陆接口，让所有人都可以访问登陆页面
         filterChainDefinitionMap.put("/login", "anon");
-        //游客可以访问adminLogin，adminLogin是管理员登陆接口，对应的是URL为/adminLogin的Handler
-        filterChainDefinitionMap.put("/adminLogin","anon");
+        //游客可以访问LoginAction，LoginAction是管理员登陆接口，对应的是URL为/LoginAction的Handler
+        filterChainDefinitionMap.put("/LoginAction","anon");
 
-        //其余接口一律拦截
-        //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
+        //其余接口一律拦截,这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         System.out.println("**********************************Shiro拦截器工厂类注入成功**********************************");
@@ -45,7 +45,7 @@ public class ShiroConfig {
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        // 设置realm.
+        // 设置管理器管理的域即realm.
         securityManager.setRealm(customRealm());
         return securityManager;
     }
@@ -57,5 +57,15 @@ public class ShiroConfig {
     @Bean
     public CustomRealm customRealm() {
         return new CustomRealm();
+    }
+
+    /**
+     * 配置该类后就可以解析页面中 <div>Hello, </div><shiro:principal/>, how are you today?</div>
+     * <p shiro:hasRole="user"> hello,user</p>等shiro标签和标签属性，当然页面的<html></html>中还必须引入
+     * xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" 命名空间
+     */
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
     }
 }

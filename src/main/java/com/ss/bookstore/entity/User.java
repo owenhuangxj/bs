@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.Serializable;
 import java.util.*;
@@ -13,6 +14,7 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonComponent
 public class User implements Serializable {
     /**
      * 用户id
@@ -65,6 +67,7 @@ public class User implements Serializable {
      * 用户最后登录时间
      */
     private Date userLastLoginTime;
+
     /**
      * 所有的收货地址
      */
@@ -88,6 +91,8 @@ public class User implements Serializable {
     private Map<Book, Integer> cart = new HashMap<>();
     @TableField(exist = false)
     private List<Coupon> coupons = new ArrayList<Coupon>();
+
+
     public User(Long userId, String userName, String userPassword, String userRole) {
         this.userId = userId;
         this.userName = userName;

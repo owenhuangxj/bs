@@ -52,7 +52,7 @@ spring:
 #    filters: stat,log4j,wall
 #    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   redis:
-    host: 127.0.0.1
+    host: 134.175.144.23
     database: 3 #默认为0
     password: foobared
 #    port: 6379 #默认就是6379

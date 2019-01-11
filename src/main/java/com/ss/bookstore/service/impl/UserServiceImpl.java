@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("i am from userService");
         System.out.println(stringRedisTemplate.getValueSerializer());
         System.out.println(redisTemplate.getValueSerializer());
+        stringRedisTemplate.opsForValue().set("goal","find a girl!");
         return "fee";
     }
 }

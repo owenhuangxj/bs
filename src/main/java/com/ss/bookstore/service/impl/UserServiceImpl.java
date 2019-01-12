@@ -33,10 +33,6 @@ public class UserServiceImpl implements UserService {
     }
     @Cacheable(value = "user", key ="#id", unless = "#result==null")
     public String getUser(int id) {
-        System.out.println("i am from userService");
-        System.out.println(stringRedisTemplate.getValueSerializer());
-        System.out.println(redisTemplate.getValueSerializer());
-        stringRedisTemplate.opsForValue().set("goal","find a girl!");
-        return "fee";
+        return stringRedisTemplate.opsForValue().get("goal");
     }
 }

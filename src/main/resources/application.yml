@@ -54,7 +54,7 @@ spring:
   redis:
     host: 134.175.144.23
     database: 3 #默认为0
-    password: foobared
+    password: crmfoo
 #    port: 6379 #默认就是6379
 #    timeout: 3600 # 单位是ms
 #    pool:
